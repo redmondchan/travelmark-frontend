@@ -10,11 +10,21 @@ function App() {
     let selectedCountry = document.getElementById("input__country").value
     let selectedCity = document.getElementById("input__city").value
     if(selectedCity == ""){
-      console.log("no city")
+      let selectedCountryId = document.querySelector(`[value="${selectedCountry}"]`).id
+      console.log(selectedCountryId)
+      fetch(`http://localhost:8083/articlesByCountry/${selectedCountryId}`)
+        .then(response => response.json())
+        .then(articles => {
+          console.log(articles)
+        })
     } else {
-      console.log(selectedCity)
-      console.log(selectedCity == null)
-      console.log("yes city")
+      let selectedCityId = document.querySelector(`[value="${selectedCity}"]`).id
+      console.log(selectedCityId)
+      fetch(`http://localhost:8083/articlesByCity/${selectedCityId}`)
+        .then(response => response.json())
+        .then(articles => {
+          console.log(articles)
+        })
     }
   }
 
