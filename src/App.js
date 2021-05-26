@@ -6,7 +6,16 @@ function App() {
 
   function handleSubmit(e){
     e.preventDefault()
-    console.log("submit")
+    console.log(e)
+    let selectedCountry = document.getElementById("input__country").value
+    let selectedCity = document.getElementById("input__city").value
+    if(selectedCity == ""){
+      console.log("no city")
+    } else {
+      console.log(selectedCity)
+      console.log(selectedCity == null)
+      console.log("yes city")
+    }
   }
 
   return (
