@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import './App.css';
 import Search from './Search'
 import Results from './Results'
 
 function App() {
+
+  const [articles, setArticles] = useState();
 
   function handleSubmit(e){
     e.preventDefault()
@@ -16,6 +19,7 @@ function App() {
         .then(response => response.json())
         .then(articles => {
           console.log(articles)
+          setArticles(articles)
         })
     } else {
       let selectedCityId = document.querySelector(`[value="${selectedCity}"]`).id
@@ -24,6 +28,8 @@ function App() {
         .then(response => response.json())
         .then(articles => {
           console.log(articles)
+          setArticles(articles)
+          console.log({articles})
         })
     }
   }
@@ -32,7 +38,7 @@ function App() {
     <div>
       <h1>Travelmark</h1>
       <Search handleSubmit={handleSubmit}/>
-      <Results />
+      <Results articles={articles}/>
     </div>
   );
 }
