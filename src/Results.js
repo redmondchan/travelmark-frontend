@@ -1,10 +1,16 @@
 import React, {useEffect} from "react";
+import { Card } from 'semantic-ui-react'
 
-const Results = () => {
+const Results = (props) => {
 
  return (
-   <div>
-    </div>
+   <Card.Group>
+     {props.articles ?
+          props.articles.map(article => <Card fluid color='red' header={article.title} href={article.link}/>)
+       :
+          <Card fluid color ='yellow' header='no results'/>
+     }
+   </Card.Group>
  );
 };
 
