@@ -1,0 +1,32 @@
+div.ui.cards {
+  margin: 5%;
+}
+
+div.ui.segment {
+  margin: 5% 30%;
+}
+
+#form {
+  text-align: center;
+}
+
+.label__country{
+  margin: 1%;
+}
+
+.label__city{
+  margin: 1%;
+}
+
+#input__country {
+  margin: 1%;
+}
+
+#input__city {
+  margin: 1%;
+}
+
+#submit {
+  display: block;
+  margin: 1% auto 1% auto;
+}
