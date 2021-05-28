@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Segment } from 'semantic-ui-react'
 
 const Search = (props) => {
 
@@ -61,21 +62,21 @@ const Search = (props) => {
     }
 
  return (
-   <div>
+   <Segment>
     <form id="form" onSubmit={props.handleSubmit}>
-        <label>Country:</label>
+        <label className="label__country">Country:</label>
         <input list="countries" placeholder="Search Country.." id="input__country" onChange={populateCities.bind()}/>
         <datalist id="countries">
 
         </datalist>
-        <label>City:</label>
+        <label className="label__city">City:</label>
         <input list="cities" placeholder="Search City.." id="input__city" disabled/>
         <datalist id="cities">
 
         </datalist>
         <input id="submit" type="submit"/>
       </form>
-    </div>
+    </Segment>
  );
 };
 
