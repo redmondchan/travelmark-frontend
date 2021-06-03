@@ -64,16 +64,15 @@ const Search = (props) => {
  return (
    <Segment>
     <form id="form" onSubmit={props.handleSubmit}>
-        <label className="label__country">Country:</label>
+        <label className="label__country">Country:
         <input list="countries" placeholder="Search Country.." id="input__country" onChange={populateCities.bind()}/>
-        <datalist id="countries">
+        <datalist id="countries"></datalist>
+        </label>
 
-        </datalist>
         <label className="label__city">City:</label>
         <input list="cities" placeholder="Search City.." id="input__city" disabled/>
-        <datalist id="cities">
+        <datalist id="cities"></datalist>
 
-        </datalist>
         <input id="submit" type="submit"/>
       </form>
     </Segment>
