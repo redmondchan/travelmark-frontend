@@ -27,13 +27,17 @@ const Search = (props) => {
       while (citiesDropdown.firstChild) {
         citiesDropdown.removeChild(citiesDropdown.firstChild);
       }
+
       //clears selected city when user changes country
       let cityInput = document.getElementById("input__city")
       cityInput.value = ""
+
       //finds selected country option
       let selectedCountryOption = document.querySelector(`[value="${event.target.value}"]`)
-      //if selected country option is found, create datalist
+
+      //if selected country option is found, create city datalist
       if (selectedCountryOption) {
+        document.getElementById("input__country").setCustomValidity('')
         cityInput.removeAttribute("disabled")
         //fetch cities and append to datalist
         fetch(`http://localhost:8083/findCitiesByCountryId/${selectedCountryOption.id}`)
@@ -58,6 +62,7 @@ const Search = (props) => {
           })
       } else {
         document.getElementById("input__city").setAttribute("disabled", true)
+        document.getElementById("input__country").setCustomValidity('Please select a valid country')
       }
     }
 
