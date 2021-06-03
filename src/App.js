@@ -13,44 +13,34 @@ function App() {
     //if city is picked fetch by cities, if not fetch by countries
     //if country not on dropdown, error message
     console.log(e)
-    let selectedCountry = document.getElementById("input__country").value
-    let selectedCountryExist = document.querySelector(`[value="${selectedCountry}"]`)
-    let selectedCity = document.getElementById("input__city").value
-    if(selectedCountryExist){
-      document.querySelector(`[value="${selectedCountry}"]`)
-      // let selectedCity = document.getElementById("input__city").value
-      //if no city is selected, fetch articles by country
-      if(selectedCity == ""){
-        let selectedCountryId = document.querySelector(`[value="${selectedCountry}"]`).id
-        console.log(selectedCountryId)
-        fetch(`http://localhost:8083/articlesByCountry/${selectedCountryId}`)
-          .then(response => response.json())
-          .then(articles => {
-            setArticles(articles)
-          })
-      //if city is selected, fetch articles by city
-      } else {
-        let selectedCountryExist = document.querySelector(`[value="${selectedCity}"]`)
-        //check if a valid city is entered, if valid, fetch, if not, set error message
-        if(selectedCountryExist){
-          let selectedCityId = document.querySelector(`[value="${selectedCity}"]`).id
-          console.log(selectedCityId)
-          fetch(`http://localhost:8083/articlesByCity/${selectedCityId}`)
-            .then(response => response.json())
-            .then(articles => {
-              setArticles(articles)
-            })
-        } else {
-          //sets input to invalid and custom error message
-          document.getElementById("input__country").setCustomValidity('Please select a valid city')
-        }
-      }
-    }else {
-      console.log(selectedCountryExist)
-      console.log("does not exist")
-      //sets input to invalid and custom error message
-      document.getElementById("input__country").setCustomValidity('Please select a valid country')
-    }
+       let selectedCountry = document.getElementById("input__country").value
+       let selectedCountryExist = document.querySelector(`[value="${selectedCountry}"]`)
+       if(selectedCountryExist){
+         document.querySelector(`[value="${selectedCountry}"]`)
+         let selectedCity = document.getElementById("input__city").value
+         //if no city is selected, fetch articles by country
+         if(selectedCity == ""){
+           let selectedCountryId = document.querySelector(`[value="${selectedCountry}"]`).id
+           console.log(selectedCountryId)
+           fetch(`http://localhost:8083/articlesByCountry/${selectedCountryId}`)
+             .then(response => response.json())
+             .then(articles => {
+               setArticles(articles)
+             })
+         //if city is selected, fetch articles by city
+         } else {
+           let selectedCityId = document.querySelector(`[value="${selectedCity}"]`).id
+           console.log(selectedCityId)
+           fetch(`http://localhost:8083/articlesByCity/${selectedCityId}`)
+             .then(response => response.json())
+             .then(articles => {
+               setArticles(articles)
+             })
+         }
+       }else {
+         console.log(selectedCountryExist)
+         console.log("does not exist")
+       }
     // let selectedCountry = document.getElementById("input__country").value
     // let selectedCity = document.getElementById("input__city").value
     // if(selectedCity == ""){
