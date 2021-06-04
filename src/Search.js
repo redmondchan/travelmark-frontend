@@ -66,6 +66,21 @@ const Search = (props) => {
       }
     }
 
+    function validateCity(e) {
+      console.log("validate city")
+      //get city input value
+      let selectedCity = e.target.value
+      //check if value exists in datalist
+      let cityExist = document.querySelector(`[value="${e.target.value}"]`)
+      if(!cityExist){
+        //if it doesn't exist, set input into invalid and set custom message
+        document.getElementById("input__city").setCustomValidity('Please select a valid city')
+      } else {
+        //if it does, set input to valid 
+        document.getElementById("input__city").setCustomValidity('')
+      }
+    }
+
  return (
    <Segment>
     <form id="form" onSubmit={props.handleSubmit}>
@@ -75,7 +90,7 @@ const Search = (props) => {
         </label>
 
         <label className="label__city">City:</label>
-        <input list="cities" placeholder="Search City.." id="input__city" disabled/>
+        <input list="cities" placeholder="Search City.." id="input__city" disabled onChange={validateCity.bind()}/>
         <datalist id="cities"></datalist>
 
         <input id="submit" type="submit"/>
