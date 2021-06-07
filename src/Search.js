@@ -81,10 +81,9 @@ const Search = (props) => {
       }
     }
 
+    //removes focus/dropdown on enter key press
     const handleKeyPress = (event) => {
       if(event.key === 'Enter'){
-        console.log('enter press here! ')
-        console.log(event.target)
         event.target.blur()
       }
     }
