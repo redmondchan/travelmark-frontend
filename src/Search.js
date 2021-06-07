@@ -76,8 +76,16 @@ const Search = (props) => {
         //if it doesn't exist, set input into invalid and set custom message
         document.getElementById("input__city").setCustomValidity('Please select a valid city')
       } else {
-        //if it does, set input to valid 
+        //if it does, set input to valid
         document.getElementById("input__city").setCustomValidity('')
+      }
+    }
+
+    const handleKeyPress = (event) => {
+      if(event.key === 'Enter'){
+        console.log('enter press here! ')
+        console.log(event.target)
+        event.target.blur()
       }
     }
 
@@ -85,12 +93,12 @@ const Search = (props) => {
    <Segment>
     <form id="form" onSubmit={props.handleSubmit}>
         <label className="label__country">Country:
-        <input list="countries" placeholder="Search Country.." id="input__country" onChange={populateCities.bind()}/>
+        <input list="countries" placeholder="Search Country.." id="input__country" onChange={populateCities.bind()} onKeyPress={handleKeyPress}/>
         <datalist id="countries"></datalist>
         </label>
 
         <label className="label__city">City:</label>
-        <input list="cities" placeholder="Search City.." id="input__city" disabled onChange={validateCity.bind()}/>
+        <input list="cities" placeholder="Search City.." id="input__city" disabled onChange={validateCity.bind()} onKeyPress={handleKeyPress}/>
         <datalist id="cities"></datalist>
 
         <input id="submit" type="submit"/>
