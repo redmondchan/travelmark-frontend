@@ -6,6 +6,8 @@ import Results from './Results'
 function App() {
 
   const [articles, setArticles] = useState();
+  const [city, setCity] = useState();
+  const [country, setCountry] = useState();
 
   function handleSubmit(e){
     e.preventDefault()
@@ -16,6 +18,7 @@ function App() {
        let selectedCountry = document.getElementById("input__country").value
        let selectedCountryExist = document.querySelector(`[value="${selectedCountry}"]`)
        if(selectedCountryExist){
+         setCountry(selectedCountry)
          document.querySelector(`[value="${selectedCountry}"]`)
          let selectedCity = document.getElementById("input__city").value
          //if no city is selected, fetch articles by country
@@ -29,6 +32,7 @@ function App() {
              })
          //if city is selected, fetch articles by city
          } else {
+           setCity(selectedCity)
            let selectedCityId = document.querySelector(`[value="${selectedCity}"]`).id
            console.log(selectedCityId)
            fetch(`http://localhost:8083/articlesByCity/${selectedCityId}`)
@@ -69,7 +73,7 @@ function App() {
     <div>
       <h1>Travelmark</h1>
       <Search handleSubmit={handleSubmit}/>
-      <Results articles={articles}/>
+      <Results articles={articles} country={country} city={city}/>
     </div>
   );
 }
