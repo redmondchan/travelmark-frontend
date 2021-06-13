@@ -6,7 +6,13 @@ const Results = (props) => {
  return (
    <Card>
     <Card.Content>
-      <Card.Header>Recent Activity</Card.Header>
+      <Card.Header>{props.country ?
+                          props.city ?
+                          `${props.city}, ${props.country}` : props.country
+                          :
+                          "No location selected"
+                   }
+      </Card.Header>
     </Card.Content>
       <Card.Group>
          {props.articles ?
