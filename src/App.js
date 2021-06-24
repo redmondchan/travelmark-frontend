@@ -119,14 +119,46 @@ function App() {
         }
       })
   }
+
+  const getArticles = () => {
+    console.log(country)
+    let selectedCity = document.getElementById("input__city").value
+    let selectedCountry = document.getElementById("input__country").value
+
+    if(selectedCity == ""){
+      let selectedCountryId = document.querySelector(`[value="${selectedCountry}"]`).id
+      console.log(selectedCountryId)
+      fetch(`http://localhost:8083/articlesByCountry/${selectedCountryId}`)
+        .then(response => response.json())
+        .then(articles => {
+          setArticles(articles)
+        })
+    //if city is selected, fetch articles by city
+    } else {
+      setCity(selectedCity)
+      let selectedCityId = document.querySelector(`[value="${selectedCity}"]`).id
+      console.log(selectedCityId)
+      fetch(`http://localhost:8083/articlesByCity/${selectedCityId}`)
+        .then(response => response.json())
+        .then(articles => {
+          setArticles(articles)
+        })
+    }
+  }
+
   const handleCountryChange = (e) => {
     let citiesDropdown = document.getElementById("cities")
     let selectedCountryOption = document.querySelector(`[value="${e.target.value}"]`)
     clearCities(citiesDropdown)
     if (validateCountry(e, selectedCountryOption)){
       populateCities1(e, selectedCountryOption, citiesDropdown)
+
+      setCountry(e.target.value)
+      getArticles()
     } else {
       //do something
+      setArticles()
+      setCountry()
       document.getElementById("input__city").setAttribute("disabled", true)
       document.getElementById("input__country").setCustomValidity('Please select a valid country')
     }
@@ -137,6 +169,7 @@ function App() {
   return (
     <div>
       <h1>Travelmark</h1>
+      <h2>{country}</h2>
       <Search handleCountryChange={handleCountryChange}/>
       <Results articles={articles} country={country} city={city}/>
     </div>
