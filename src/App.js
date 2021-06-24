@@ -9,65 +9,65 @@ function App() {
   const [city, setCity] = useState();
   const [country, setCountry] = useState();
 
-  function handleSubmit(e){
-    e.preventDefault()
-    //if country picked exist in dropdown then check
-    //if city is picked fetch by cities, if not fetch by countries
-    //if country not on dropdown, error message
-    console.log(e)
-       let selectedCountry = document.getElementById("input__country").value
-       let selectedCountryExist = document.querySelector(`[value="${selectedCountry}"]`)
-       if(selectedCountryExist){
-         setCountry(selectedCountry)
-         document.querySelector(`[value="${selectedCountry}"]`)
-         let selectedCity = document.getElementById("input__city").value
-         //if no city is selected, fetch articles by country
-         if(selectedCity == ""){
-           let selectedCountryId = document.querySelector(`[value="${selectedCountry}"]`).id
-           console.log(selectedCountryId)
-           fetch(`http://localhost:8083/articlesByCountry/${selectedCountryId}`)
-             .then(response => response.json())
-             .then(articles => {
-               setArticles(articles)
-             })
-         //if city is selected, fetch articles by city
-         } else {
-           setCity(selectedCity)
-           let selectedCityId = document.querySelector(`[value="${selectedCity}"]`).id
-           console.log(selectedCityId)
-           fetch(`http://localhost:8083/articlesByCity/${selectedCityId}`)
-             .then(response => response.json())
-             .then(articles => {
-               setArticles(articles)
-             })
-         }
-       }else {
-         console.log(selectedCountryExist)
-         console.log("does not exist")
-       }
-    // let selectedCountry = document.getElementById("input__country").value
-    // let selectedCity = document.getElementById("input__city").value
-    // if(selectedCity == ""){
-    //   let selectedCountryId = document.querySelector(`[value="${selectedCountry}"]`).id
-    //   console.log(selectedCountryId)
-    //   fetch(`http://localhost:8083/articlesByCountry/${selectedCountryId}`)
-    //     .then(response => response.json())
-    //     .then(articles => {
-    //       console.log(articles)
-    //       setArticles(articles)
-    //     })
-    // } else {
-    //   let selectedCityId = document.querySelector(`[value="${selectedCity}"]`).id
-    //   console.log(selectedCityId)
-    //   fetch(`http://localhost:8083/articlesByCity/${selectedCityId}`)
-    //     .then(response => response.json())
-    //     .then(articles => {
-    //       console.log(articles)
-    //       setArticles(articles)
-    //       console.log({articles})
-    //     })
-    // }
-  }
+  // function handleSubmit(e){
+  //   e.preventDefault()
+  //   //if country picked exist in dropdown then check
+  //   //if city is picked fetch by cities, if not fetch by countries
+  //   //if country not on dropdown, error message
+  //   console.log(e)
+  //      let selectedCountry = document.getElementById("input__country").value
+  //      let selectedCountryExist = document.querySelector(`[value="${selectedCountry}"]`)
+  //      if(selectedCountryExist){
+  //        setCountry(selectedCountry)
+  //        document.querySelector(`[value="${selectedCountry}"]`)
+  //        let selectedCity = document.getElementById("input__city").value
+  //        //if no city is selected, fetch articles by country
+  //        if(selectedCity == ""){
+  //          let selectedCountryId = document.querySelector(`[value="${selectedCountry}"]`).id
+  //          console.log(selectedCountryId)
+  //          fetch(`http://localhost:8083/articlesByCountry/${selectedCountryId}`)
+  //            .then(response => response.json())
+  //            .then(articles => {
+  //              setArticles(articles)
+  //            })
+  //        //if city is selected, fetch articles by city
+  //        } else {
+  //          setCity(selectedCity)
+  //          let selectedCityId = document.querySelector(`[value="${selectedCity}"]`).id
+  //          console.log(selectedCityId)
+  //          fetch(`http://localhost:8083/articlesByCity/${selectedCityId}`)
+  //            .then(response => response.json())
+  //            .then(articles => {
+  //              setArticles(articles)
+  //            })
+  //        }
+  //      }else {
+  //        console.log(selectedCountryExist)
+  //        console.log("does not exist")
+  //      }
+  //   // let selectedCountry = document.getElementById("input__country").value
+  //   // let selectedCity = document.getElementById("input__city").value
+  //   // if(selectedCity == ""){
+  //   //   let selectedCountryId = document.querySelector(`[value="${selectedCountry}"]`).id
+  //   //   console.log(selectedCountryId)
+  //   //   fetch(`http://localhost:8083/articlesByCountry/${selectedCountryId}`)
+  //   //     .then(response => response.json())
+  //   //     .then(articles => {
+  //   //       console.log(articles)
+  //   //       setArticles(articles)
+  //   //     })
+  //   // } else {
+  //   //   let selectedCityId = document.querySelector(`[value="${selectedCity}"]`).id
+  //   //   console.log(selectedCityId)
+  //   //   fetch(`http://localhost:8083/articlesByCity/${selectedCityId}`)
+  //   //     .then(response => response.json())
+  //   //     .then(articles => {
+  //   //       console.log(articles)
+  //   //       setArticles(articles)
+  //   //       console.log({articles})
+  //   //     })
+  //   // }
+  // }
 
   const clearCities = (citiesDropdown) => {
     //clears all city options so cities from other countries are not there when a user selects a different coutnry
@@ -97,7 +97,7 @@ function App() {
     }
   }
 
-  const populateCities1 = (e, selectedCountryOption, citiesDropdown) => {
+  const populateCities = (e, selectedCountryOption, citiesDropdown) => {
     fetch(`http://localhost:8083/findCitiesByCountryId/${selectedCountryOption.id}`)
       .then(response => response.json())
       .then(cities => {
@@ -151,7 +151,7 @@ function App() {
     let selectedCountryOption = document.querySelector(`[value="${e.target.value}"]`)
     clearCities(citiesDropdown)
     if (validateCountry(e, selectedCountryOption)){
-      populateCities1(e, selectedCountryOption, citiesDropdown)
+      populateCities(e, selectedCountryOption, citiesDropdown)
 
       setCountry(e.target.value)
       getArticles()
@@ -169,7 +169,6 @@ function App() {
   return (
     <div>
       <h1>Travelmark</h1>
-      <h2>{country}</h2>
       <Search handleCountryChange={handleCountryChange}/>
       <Results articles={articles} country={country} city={city}/>
     </div>
